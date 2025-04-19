@@ -1,0 +1,32 @@
+backend:
+  name: git-gateway # Use Netlify Identity for authentication
+  branch: main # Or master, depending on your default branch
+
+media_folder: "images/uploads" # Location where files will be uploaded
+public_folder: "/images/uploads" # The src attribute for uploaded files
+
+collections:
+  - name: "projects" # Used in routes, e.g., /admin/collections/projects
+    label: "Projects" # Used in the UI
+    folder: "_projects" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., title.md
+    fields: # The fields for each document, usually in front matter
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "project",
+        } # Optional: useful if using a static site generator
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "featured_image", widget: "image" }
+      - { label: "Description", name: "description", widget: "text" }
+      - {
+          label: "Gallery Images",
+          name: "gallery_images",
+          widget: "list",
+          field: { label: Image, name: image, widget: image },
+          required: false,
+        }
+      # Add any other fields you need for a project
